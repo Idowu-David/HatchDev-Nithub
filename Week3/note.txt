@@ -1,0 +1,5 @@
+Aggregation is a special form of association where one class has a reference to another class but both can exist independently
+
+An abstract class is a blueprint that cannot be directly instantiated, but can only be extended. It can include:
+	- concrete method (with full implementation)
+	- abstract methods (only the method signature, no implementation) because it is to be implemented by the child class.

@@ -1,0 +1,21 @@
+DATA STRUCTURES AND ALGORITHM
+
+Data Structure is a way data is organized for efficient access, efficient storage and efficient manipulation.
+Algorithm refers to the step by step process in achieving a task.
+
+- Linear Structure: array, linked list, stack, queue
+	* Array is a collection of data that can be accessed via index
+- Non linear Structure: binary tree
+
+Time Complexity: how fast an algorithm runs a large input.
+Space Complexity
+
+Big O is a way of seeing how an algorithm performs in the worst case.
+O(1) - constant time. NO matter the input, it'd still run at a constant time.
+O(n) - the time increases with the input
+O(log n) - 
+
+
+ARRAY
+	Deletion: O(n)
+	Insertion: O

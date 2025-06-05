@@ -1,0 +1,103 @@
+✅ fill()
+Fills all elements in an array from a start index to an end index with a static value.
+
+fill(value: T, start?: number, end?: number): this
+Example:
+
+[1, 2, 3].fill(0); // [0, 0, 0]
+
+✅ filter()
+Returns a new array with all elements that pass the test implemented by the provided function.
+
+filter(callback: (value: T, index: number, array: T[]) => boolean, thisArg?: any): T[]
+Example:
+
+[1, 2, 3, 4].filter(n => n % 2 === 0); // [2, 4]
+
+✅ findIndex()
+Returns the index of the first element that satisfies the provided testing function, or -1 if none match.
+
+findIndex(callback: (value: T, index: number, array: T[]) => boolean, thisArg?: any): number
+Example:
+
+[5, 12, 8].findIndex(n => n > 10); // 1
+
+✅ findLast() (Newer: ES2023)
+Returns the last element in the array that satisfies the provided testing function.
+
+findLast(callback: (value: T, index: number, array: T[]) => boolean, thisArg?: any): T | undefined
+Example:
+
+[1, 2, 3, 4].findLast(n => n < 4); // 3
+
+✅ forEach()
+Executes a provided function once for each array element.
+
+forEach(callback: (value: T, index: number, array: T[]) => void, thisArg?: any): void
+Example:
+
+[1, 2, 3].forEach(n => console.log(n));
+
+✅ indexOf()
+Returns the first index at which a given element can be found, or -1 if it’s not present.
+
+indexOf(searchElement: T, fromIndex?: number): number
+Example:
+
+['a', 'b', 'c'].indexOf('b'); // 1
+
+✅ join()
+Joins all elements into a string, with an optional separator.
+
+join(separator?: string): string
+Example:
+
+['fire', 'ice'].join(' & '); // 'fire & ice'
+
+✅ map()
+Returns a new array with the results of calling a function on every element.
+
+map<U>(callback: (value: T, index: number, array: T[]) => U, thisArg?: any): U[]
+Example:
+
+[1, 2, 3].map(x => x * 2); // [2, 4, 6]
+
+✅ reverse()
+Reverses the array in place and returns the reference to the same array.
+
+reverse(): this
+Example:
+
+[1, 2, 3].reverse(); // [3, 2, 1]
+
+✅ shift()
+Removes the first element and returns it. Mutates the array.
+
+shift(): T | undefined
+Example:
+
+[10, 20, 30].shift(); // 10
+
+✅ sort()
+Sorts the array in place and returns it. Can take a custom compare function.
+
+sort(compareFn?: (a: T, b: T) => number): this
+Example:
+
+[3, 1, 2].sort(); // [1, 2, 3]
+
+✅ splice()
+Changes the contents of the array by removing or replacing existing elements and/or adding new ones.
+
+splice(start: number, deleteCount?: number, ...items: T[]): T[]
+Example:
+
+[1, 2, 3, 4].splice(1, 2); // [2, 3]
+
+✅ unshift()
+Adds one or more elements to the start of the array and returns the new length.
+
+unshift(...items: T[]): number
+Example:
+
+[2, 3].unshift(1); // [1, 2, 3]
