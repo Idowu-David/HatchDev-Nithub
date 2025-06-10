@@ -8,7 +8,7 @@ class LNode {
   }
 }
 
-class LinkedList {
+class linkedList {
   head: LNode | null;
 
   constructor(initialValue: number) {
