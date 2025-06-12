@@ -203,3 +203,9 @@ console.log("After pop:", arr);
 // ✅ Final state
 console.log("Final array:", arr);
 console.log("Final length:", arr.length);
+const ar = [1, 2, 4, 5, 2, 4];
+ar.push(10);
+ar.splice;
+const arr2 = new MyArray([1, 2, 3, 5]);
+const arrr = [];
+const ha;

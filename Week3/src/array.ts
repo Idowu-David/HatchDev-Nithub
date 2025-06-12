@@ -1,5 +1,5 @@
 class MyArray<T> {
-  public length: number = 0;
+  length: number = 0;
   private array: T[] = [];
 
   constructor(arr?: T[]) {

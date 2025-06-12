@@ -1,0 +1,32 @@
+Create a doubly linked list
+Each nodes represents a song
+A song is made up of:
+	name, artist, duration, song_id(unique)
+
+class variable:
+	song list: [];
+
+methods are:
+	repeat:
+	delete:
+	shuffle:
+	add:
+	loop:
+	search(artist, title) - returns the id, that can be used by play.
+	favorite: triggers isFavorite;
+	play(id): only a song - if the id is not passed, use the search() to get the song id, and play by ID
+	playAll: plays all the song in the list.
+	showSongs:
+	sortTitleAscending:
+	sortTitleDescending:
+	sortIdAscending
+	sortIdDescending
+	sortDurationAscending
+	sortDurationDescending
+	nowPlaying:
+	sort
+	isFavorite: boolean flag for liking a song
+	playCount: increments by 'Play'
+
+
+
