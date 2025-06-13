@@ -3,16 +3,23 @@ class SongNode {
   title: string;
   artist: string;
   duration: number;
-  public readonly id: number = 0;
+  id: number = 0;
+  static idCounter: number = 0;
   prev: SongNode | null = null;
-  private playCount: number = 0;
-  private isFavorite: boolean = false;
+  playCount: number = 0;
 
   constructor(title: string, artist: string, duration: number) {
     this.title = title;
     this.artist = artist;
     this.duration = duration;
-    this.id++;
+    this.id = ++SongNode.idCounter;
+  }
+
+  play(list: SongList) {
+    console.log(
+      `Now playing: "${this.title}" by ${this.artist} [${this.duration}s]`
+    );
+    list.currently = this;
   }
 }
 
@@ -20,6 +27,9 @@ class SongList {
   numberOfSongs: number = 0;
   head: SongNode | null = null;
   tail: SongNode | null = null;
+  isShuffle: boolean = false;
+  currently: SongNode | null = null;
+  isLoop: boolean = false;
 
   /**
    * Adds a new song to the playlist
@@ -32,6 +42,7 @@ class SongList {
     const song = new SongNode(title, artist, duration);
     if (!this.head) {
       this.head = this.tail = song;
+      this.numberOfSongs++;
       return song.id;
     }
     let current = this.head;
@@ -41,7 +52,7 @@ class SongList {
     current.next = song;
     song.prev = current;
     this.tail = song;
-
+    this.numberOfSongs++;
     return song.id;
   }
 
@@ -79,6 +90,7 @@ class SongList {
       console.log("No match found");
       return;
     }
+    console.log(`${matches.length} match(es) found:\n`);
     console.log(SongList.Header());
     console.log("-".repeat(65));
 
@@ -92,9 +104,175 @@ class SongList {
     }
   }
 
+  playById(id: number) {
+    let song = this.head;
+    while (song) {
+      if (song.id === id) {
+        song.play(this);
+        this.currently = song;
+        return;
+      }
+      song = song.next;
+    }
+    console.log("Not found");
+  }
+
+  nowPlaying() {
+    if (this.currently) {
+      console.log(
+        `Currently playing: "${this.currently.title}" by ${this.currently.artist} [${this.currently.duration}s]`
+      );
+    } else {
+      console.log("No song is currently playing");
+    }
+  }
+
+  delete(id: number) {
+    if (!this.head) return;
+
+    let song: SongNode | null = this.head;
+    let node: SongNode;
+
+    while (song) {
+      if (song.id === id) {
+        node = song;
+        if (song.prev === null) {
+          this.head = song.next;
+          if (this.head) this.head.prev = null;
+        } else if (song.next === null) {
+          song.prev.next = song.prev = null;
+          song = null;
+        } else {
+          song.prev.next = song.next;
+          song.next.prev = song.prev;
+          song.next = song.prev = song = null;
+        }
+        console.log(
+          `Deleted: "${node.title}" by ${node.artist} [${node.duration}s]`
+        );
+        this.numberOfSongs--;
+        return;
+      }
+      song = song.next;
+    }
+    console.log(`Song not found`);
+  }
+
+  /**
+   * Lists all the songs in the playlist.
+   *
+   */
+  playlist() {
+    if (!this.head) {
+      console.log("No head");
+      return;
+    }
+    let song: SongNode | null = this.head;
+
+    console.log(`Number of Songs: ${SongNode.idCounter}`);
+    console.log(SongList.Header());
+    console.log("-".repeat(65));
+    while (song) {
+      console.log(
+        String(song.id).padEnd(4) +
+          song.artist.padEnd(20) +
+          song.title.padEnd(30) +
+          `${song.duration}s`.padEnd(9)
+      );
+      song = song.next;
+    }
+  }
+
+  /**
+   * Plays the playlist in a loop
+   * @param times number of times to loop
+   */
+  loop(times: number) {
+    if (!this.head) return;
+    if (this.tail) {
+      this.tail.next = this.head;
+      this.head.prev = this.tail;
+    }
+    let current: SongNode | null = this.head;
+    for (let i = 0; i < times; i++) {
+      let count = 0;
+      while (count < this.numberOfSongs && current) {
+        current.play(this);
+        current = current.next;
+        count++;
+      }
+    }
+    this.isLoop = true;
+  }
+
+  /**
+   * Turns off the loop property
+   */
+  loopOff() {
+    if (!this.head || !this.tail) return;
+
+    this.head.prev = null;
+    this.tail.next = null;
+    this.isLoop = false;
+  }
+
+  /**
+   * Toggles the shuffle property
+   */
+  shuffle(): void {
+    this.isShuffle = !this.isShuffle;
+  }
+
+  /**
+   * Plays the next song in the list
+   * checks if shuffle is on, plays randomly
+   */
+  next() {
+    if (!this.head || !this.tail) return;
+
+    if (this.isShuffle) {
+      let random = Math.floor(Math.random() * this.numberOfSongs);
+      let current: SongNode | null = this.head;
+      for (let i = 0; i < random && current; i++) {
+        current = current.next;
+      }
+
+      if (current) {
+        current.play(this);
+        this.currently = current;
+      }
+    } else {
+      let nextSong = this.currently?.next;
+
+      if (!nextSong && this.isLoop) {
+        nextSong = this.head;
+      }
+
+      if (nextSong) {
+        nextSong.play(this);
+        this.currently = nextSong;
+      } else {
+        console.log("End of playlist");
+      }
+    }
+  }
+
+  prev() {}
+
+  reversePlay() {
+    if (!this.head || !this.tail) return;
+
+    let song: SongNode | null = this.tail;
+
+    while (song) {
+      song.play(this);
+      song = song.prev;
+    }
+  }
+
   /**
    * Formats the header for the display of the songs.
-   * @returns
+   * @returns)
    */
   static Header(): string {
     return (
@@ -107,10 +285,3 @@ class SongList {
 }
 
 const song = new SongList();
-song.add("The Great Revivalist", "Dunsin Oyekan", 324);
-song.add("More Than Anything", "Dunsin Oyekan", 228);
-song.add("Baba We Thank You O", "Nathaniel Bassey", 290);
-song.add("Jesus You are Everything", "Theophilus Sunday", 389);
-
-song.search("Jesus")
-
