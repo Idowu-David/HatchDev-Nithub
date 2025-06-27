@@ -149,9 +149,16 @@ class MyArray {
         }
         return this;
     }
+    /**
+     * Prints the array
+     */
+    print() {
+        console.log(this.array);
+    }
 }
-// const arr = new MyArray([2, "S", true, false, 'Hello', 10]);
+const arr = new MyArray([2, "S", true, false, 'Hello', 10]);
 // // console.log(arr.length);
+arr.print();
 // console.log(arr);
 // console.log(arr.reverse())
 // console.log(arr);
@@ -168,38 +175,38 @@ class MyArray {
 // // console.log(arr.unshift(10, 't', 19, 'man'));
 // // console.log(arr);
 // // // console.log(arr.join(' # '));
-const a = [1, 2, 3, 4];
-// console.log(a.splice());
-// // // TODO
-// // fill(), filter(), findIndex(), findLast(), forEach(), indexOf(), join(), map(), reverse(), shift(), sort(), splice(), unshift(),
-const arr = new MyArray([2, "S", true, false, "Hello", 10]);
-console.log("Original array:", arr);
-// 🔄 Test reverse()
-console.log("Reversed:", arr.reverse()); // Expect: [10, 'Hello', false, true, 'S', 2]
-console.log("After reverse (should be same as above):", arr);
-// 🔍 Test indexOf()
-console.log(`IndexOf "Hello":`, arr.indexOf("Hello")); // Expect: some valid index
-console.log(`IndexOf 999 (non-existent):`, arr.indexOf(999)); // Expect: -1
-// 🧪 Test fill()
-arr.fill("FILL", 1, 4);
-console.log("After fill from index 1 to 4:", arr); // Expect: [10, 'FILL', 'FILL', 'FILL', 'S', 2]
-// 🧹 Test shift()
-const shifted = arr.shift();
-console.log("Shifted value:", shifted); // Expect: 10
-console.log("After shift:", arr); // Expect: ['FILL', 'FILL', 'FILL', 'S', 2]
-// 🚀 Test unshift()
-const newLength = arr.unshift(10, "t", 19, "man");
-console.log("New length after unshift:", newLength); // Expect: updated length
-console.log("After unshift:", arr); // Should show new elements at the front
-// 🧵 Test join()
-console.log("Joined with ' # ':", arr.join(" # ")); // Expect: joined string
-// 🧠 Test includes()
-console.log("Includes 'S':", arr.includes("S")); // true/false depending on previous state
-console.log("Includes 'FILL':", arr.includes("FILL")); // true if still in array
-// 🧪 Test pop()
-const popped = arr.pop();
-console.log("Popped value:", popped); // Expect: last item
-console.log("After pop:", arr);
-// ✅ Final state
-console.log("Final array:", arr);
-console.log("Final length:", arr.length);
+// const a = [1, 2, 3, 4];
+// // console.log(a.splice());
+// // // // TODO
+// // // fill(), filter(), findIndex(), findLast(), forEach(), indexOf(), join(), map(), reverse(), shift(), sort(), splice(), unshift(),
+// // const arr = new MyArray([2, "S", true, false, "Hello", 10]);
+// // console.log("Original array:", arr);
+// // // 🔄 Test reverse()
+// // console.log("Reversed:", arr.reverse()); // Expect: [10, 'Hello', false, true, 'S', 2]
+// // console.log("After reverse (should be same as above):", arr);
+// // // 🔍 Test indexOf()
+// // console.log(`IndexOf "Hello":`, arr.indexOf("Hello")); // Expect: some valid index
+// // console.log(`IndexOf 999 (non-existent):`, arr.indexOf(999)); // Expect: -1
+// // // 🧪 Test fill()
+// // arr.fill("FILL", 1, 4);
+// // console.log("After fill from index 1 to 4:", arr); // Expect: [10, 'FILL', 'FILL', 'FILL', 'S', 2]
+// // // 🧹 Test shift()
+// // const shifted = arr.shift();
+// // console.log("Shifted value:", shifted); // Expect: 10
+// // console.log("After shift:", arr); // Expect: ['FILL', 'FILL', 'FILL', 'S', 2]
+// // // 🚀 Test unshift()
+// // const newLength = arr.unshift(10, "t", 19, "man");
+// // console.log("New length after unshift:", newLength); // Expect: updated length
+// // console.log("After unshift:", arr); // Should show new elements at the front
+// // // 🧵 Test join()
+// // console.log("Joined with ' # ':", arr.join(" # ")); // Expect: joined string
+// // // 🧠 Test includes()
+// // console.log("Includes 'S':", arr.includes("S")); // true/false depending on previous state
+// // console.log("Includes 'FILL':", arr.includes("FILL")); // true if still in array
+// // // 🧪 Test pop()
+// // const popped = arr.pop();
+// // console.log("Popped value:", popped); // Expect: last item
+// // console.log("After pop:", arr);
+// // // ✅ Final state
+// // console.log("Final array:", arr);
+// // console.log("Final length:", arr.length);

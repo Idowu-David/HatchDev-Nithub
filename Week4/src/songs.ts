@@ -285,3 +285,8 @@ class SongList {
 }
 
 const song = new SongList();
+song.add("Baba", "Dunsin Oyekan", 234);
+song.add("Halleluyah", "McDowell", 329);
+song.add("Give Thanks", "Don Moen", 231);
+
+song.playlist();

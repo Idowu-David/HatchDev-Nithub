@@ -24,7 +24,10 @@ methods are:
 	sortDurationAscending
 	sortDurationDescending
 	nowPlaying:
-	sort
+	sortByName:
+	sortByTitle
+	sortByDuration:
+	// sort function takes an argument (A or D) for ascending or descending.
 	isFavorite: boolean flag for liking a song
 	playCount: increments by 'Play'
 
