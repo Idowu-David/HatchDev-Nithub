@@ -1,8 +1,9 @@
-var MyArray = /** @class */ (function () {
-    function MyArray(arr) {
+"use strict";
+class MyArray {
+    constructor(arr) {
         this.length = 0;
         this.array = [];
-        var i = 0;
+        let i = 0;
         if (arr) {
             while (arr[i] !== undefined) {
                 this.array[i] = arr[i];
@@ -17,69 +18,65 @@ var MyArray = /** @class */ (function () {
      * @param values  The values to be added.
      * @returns The new length of the array.
      */
-    MyArray.prototype.push = function () {
-        var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            values[_i] = arguments[_i];
-        }
-        for (var i = 0; values[i] !== undefined; i++) {
+    push(...values) {
+        for (let i = 0; values[i] !== undefined; i++) {
             this.array[this.length++] = values[i];
         }
         return this.length;
-    };
+    }
     /**
      * Removes the last element from the array and returns it.
      *
      * @returns The removed element, or `undefined` if the array is empty
      */
-    MyArray.prototype.pop = function () {
+    pop() {
         if (this.length === 0)
             return undefined;
-        var last = this.array[this.length - 1];
-        var newArray = [];
-        for (var i = 0; i < this.length - 1; i++) {
+        const last = this.array[this.length - 1];
+        const newArray = [];
+        for (let i = 0; i < this.length - 1; i++) {
             newArray[i] = this.array[i];
         }
         this.array = newArray;
         this.length--;
         return last;
-    };
+    }
     /**
      * Checks whether the array includes a certain element.
      *
      * @param element The element to search for.
      * @returns `true` if the element is found, otherwise `false`
      */
-    MyArray.prototype.includes = function (element) {
-        for (var i = 0; i < this.length; i++) {
+    includes(element) {
+        for (let i = 0; i < this.length; i++) {
             if (element === this.array[i])
                 return true;
         }
         return false;
-    };
+    }
     /**
      * Returns the first index at which a given element can be found, or -1 if it’s not present.
      * @param searchElement — The value to locate in the array.
      * @param fromIndex — The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0
      */
-    MyArray.prototype.indexOf = function (searchElement, fromIndex) {
-        for (var i = fromIndex !== null && fromIndex !== void 0 ? fromIndex : 0; i < this.length; i++) {
+    indexOf(searchElement, fromIndex) {
+        for (let i = fromIndex !== null && fromIndex !== void 0 ? fromIndex : 0; i < this.length; i++) {
             if (this.array[i] == searchElement)
                 return i;
         }
         return -1;
-    };
+    }
     /**
      * Fills all elements in an array from a start index to an end index with a static value.
      * @param value to fill the array with
      * @param start optional index to start with
      * @param end optional index to end with
      */
-    MyArray.prototype.fill = function (value, start, end) {
-        for (var i = start !== null && start !== void 0 ? start : 0; i < (end !== null && end !== void 0 ? end : this.length); i++) {
+    fill(value, start, end) {
+        for (let i = start !== null && start !== void 0 ? start : 0; i < (end !== null && end !== void 0 ? end : this.length); i++) {
             this.array[i] = value;
         }
-    };
+    }
     /**
      * Returns the elements of an array that meet the condition specified in a callback function.
      *
@@ -91,80 +88,75 @@ var MyArray = /** @class */ (function () {
      *
      * @param separator A string used to separate one element of the array from the next in the resulting string. If omitted, the array elements are separated with a comma.
      */
-    MyArray.prototype.join = function (separator) {
+    join(separator) {
         if (!separator)
             separator = ",";
-        var joinStr = "";
-        for (var i = 0; i < this.length; i++) {
+        let joinStr = "";
+        for (let i = 0; i < this.length; i++) {
             joinStr += this.array[i];
             if (i < this.length - 1)
                 joinStr += separator;
         }
         return joinStr;
-    };
+    }
     /**
      * Removes the first element from an array and returns it. If the array is empty, undefined is returned and the array is not modified.
      */
-    MyArray.prototype.shift = function () {
+    shift() {
         if (this.length === 0)
             return undefined;
-        var first = this.array[0];
-        var shiftArray = [];
-        for (var i = 0; i < this.length - 1; i++) {
+        const first = this.array[0];
+        const shiftArray = [];
+        for (let i = 0; i < this.length - 1; i++) {
             shiftArray[i] = this.array[i + 1];
         }
         this.array = shiftArray;
         this.length--;
         return first;
-    };
+    }
     /**
      * Inserts new elements at the start of an array, and returns the new length of the array.
      *
      * @param items Elements to insert at the start of the array.
      */
-    MyArray.prototype.unshift = function () {
-        var items = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            items[_i] = arguments[_i];
-        }
-        var newArray = [];
-        var count = 0;
-        for (var i_1 = 0; items[i_1] !== undefined; i_1++) {
-            newArray[i_1] = items[i_1];
+    unshift(...items) {
+        const newArray = [];
+        let count = 0;
+        for (let i = 0; items[i] !== undefined; i++) {
+            newArray[i] = items[i];
             count++;
             this.length++;
         }
-        var i = 0;
-        for (var j = count; j < this.length; j++) {
+        let i = 0;
+        for (let j = count; j < this.length; j++) {
             newArray[j] = this.array[i++];
         }
-        console.log("New: ".concat(newArray));
+        console.log(`New: ${newArray}`);
         this.array = newArray;
         console.log(newArray);
         return this.length;
-    };
+    }
     /**
      * Reverses the elements in an array in place. This method mutates the array and returns a reference to the same array.
      */
-    MyArray.prototype.reverse = function () {
-        var j = this.length - 1;
-        var temp;
-        for (var i = 0; i < this.length / 2; i++, j--) {
+    reverse() {
+        let j = this.length - 1;
+        let temp;
+        for (let i = 0; i < this.length / 2; i++, j--) {
             temp = this.array[i];
             this.array[i] = this.array[j];
             this.array[j] = temp;
         }
         return this;
-    };
+    }
     /**
      * Prints the array
      */
-    MyArray.prototype.print = function () {
+    print() {
         console.log(this.array);
-    };
-    return MyArray;
-}());
-var arr = new MyArray([2, "S", true, false, 'Hello', 10]);
+    }
+}
+const arr = new MyArray([2, "S", true, false, 'Hello', 10]);
 // // console.log(arr.length);
 arr.print();
 // console.log(arr);

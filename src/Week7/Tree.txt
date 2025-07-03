@@ -1,0 +1,15 @@
+https://www.w3schools.com/dsa/dsa_theory_trees.php
+https://www.w3schools.com/dsa/dsa_data_binarytrees.php
+Depth: the number of edges from the node to the root node
+Height: the number of edges from the node to the leaf node.
+
+A balanced BST is one in which the difference between the depth of each sub-trees is at most 1.
+
+1. Inorder Traversal: LPR - Left Parent Right
+2. Preorder Traversal: PLR - Parent Left Right
+3. Postorder Traversal: LPR - Left Parent Right
+
+7, 11, 12, 
+3, 7, 9, 11, 13, 15, 19
+
+BST: all the nodes on the right are greater than the nodes on the left.
