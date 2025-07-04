@@ -1,17 +1,17 @@
 import { hashDjb2 } from "./hashFunction";
 import { HashNode, HashTable } from "./hashTable";
 
-const SIZE: number = 1000;
+const SIZE: number = 1024;
 
 /**
  * A simple generic Hashmap implementation.
  *
- * Stores key-value pairs usinga hash table with chaining.
+ * Stores key-value pairs using a hash table with chaining.
  *
  * @typeParam T - The type of value stored in the map.
  */
-class HashMap<T> {
-  table: HashTable<T>;
+export class HashMap<K, V> {
+  table: HashTable<K, V>;
 
   constructor(size: number = SIZE) {
     this.table = new HashTable(size);
@@ -22,12 +22,12 @@ class HashMap<T> {
    *
    * @param key
    */
-  set(key: string, value: T) {
+  set(key: K, value: V) {
     const node = new HashNode(key, value);
     const index = hashDjb2(key) % SIZE;
     let update = false;
 
-    let head: HashNode<T> | null = this.table.array[index];
+    let head: HashNode<K, V> | null = this.table.array[index];
 
     if (head) {
       // position is not empty
@@ -53,9 +53,9 @@ class HashMap<T> {
    * @param key
    * @returns The value of the key, or NULL if the key is not found
    */
-  get(key: string): T | null | undefined {
+  get(key: string): V | null | undefined {
     let index = hashDjb2(key) % SIZE;
-    let ptr: HashNode<T> | null = this.table.array[index];
+    let ptr: HashNode<K, V> | null = this.table.array[index];
 
     if (ptr) {
       while (ptr) {
@@ -74,10 +74,10 @@ class HashMap<T> {
    * @param key
    * @param value
    */
-  update(key: string, value: T): void {
+  update(key: K, value: V): void {
     const index = hashDjb2(key) % SIZE;
 
-    let head: HashNode<T> | null = this.table.array[index];
+    let head: HashNode<K, V> | null = this.table.array[index];
     if (head) {
       while (head) {
         if (head.key === key) {
@@ -91,7 +91,12 @@ class HashMap<T> {
     }
   }
 
-  print(map: HashMap<T>): void {
+  /**
+   * Displays the hashmap including the chained nodes
+   *
+   * @param map The hashmap
+   */
+  print(map: HashMap<K, V>): void {
     if (map) {
       let hashStr = "{";
       let printed = false;
@@ -109,36 +114,47 @@ class HashMap<T> {
           printed = true;
           node = node.next;
         }
-
-        // while (node) {
-        //   if (printed) hashStr += ", ";
-        //   hashStr += node.key;
-        //   hashStr += ": ";
-        //   hashStr += node.value;
-        //   printed = true;
-        //   node = node.next;
-        // }
       }
       hashStr += "}";
       console.log(hashStr);
     }
   }
   // TODO - delete
+  /**
+   * Remove a key from a hashmap.
+   *
+   * @param key
+   *
+   * @returns the value of the node, or null if the key doesn't exist.
+   */
+  delete(key: string): V | null {
+    const index = hashDjb2(key) % SIZE;
+    let head: HashNode<K, V> | null = this.table.array[index];
+    let ptr: HashNode<K, V> | null = this.table.array[index];
+    let value: V;
+
+    if (head) {
+      // first key/node
+      if (head.key === key) {
+        this.table.array[index] = head.next;
+        head.next = null;
+        return head.value;
+      }
+      head = head.next;
+      while (head) {
+        // ptr = head;
+        if (head.key === key) {
+          if (ptr) {
+            ptr.next = head.next;
+            head.next = null;
+            return head.value;
+          }
+        }
+        ptr = head;
+        head = head.next;
+      }
+    }
+    console.log(`"${key}" does not exist`);
+    return null;
+  }
 }
-
-const map = new HashMap();
-map.set("David", 1);
-map.set("Subgenera", 2);
-map.set("Hello", 3);
-map.set("dram ", 5);
-map.set("vivency", 100);
-// map.set("ALX", 10);
-map.set("urites", 89);
-map.set("redescribed", 72);
-map.update("hi", 6);
-
-// console.log(map.get("Hello"));
-// map.set("depravement", 4);
-// map.set("subgenera", 5);
-
-map.print(map);

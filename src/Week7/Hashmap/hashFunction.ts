@@ -5,12 +5,18 @@
  * @returns hash value
  */
 
-export function hashDjb2(str: string): number {
+export function hashDjb2<T>(key: T): number {
   let hash = 5381;
+  let str = String(key);
 
   for (let i = 0; i < str.length; i++) {
     const c = str.charCodeAt(i);
     hash = (hash << 5) + hash + c;
   }
+  if (hash < 0) hash = hash * -1;
   return hash;
 }
+
+
+// console.log(hashDjb2("Dunsin"))
+// console.log(hashDjb2("David"))
