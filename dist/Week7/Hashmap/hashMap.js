@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.HashMap = void 0;
 const hashFunction_1 = require("./hashFunction");
 const hashTable_1 = require("./hashTable");
-const SIZE = 1000;
+const SIZE = 1024;
 /**
  * A simple generic Hashmap implementation.
  *
- * Stores key-value pairs usinga hash table with chaining.
+ * Stores key-value pairs using a hash table with chaining.
  *
  * @typeParam T - The type of value stored in the map.
  */
@@ -83,6 +84,11 @@ class HashMap {
             return;
         }
     }
+    /**
+     * Displays the hashmap including the chained nodes
+     *
+     * @param map The hashmap
+     */
     print(map) {
         if (map) {
             let hashStr = "{";
@@ -101,31 +107,48 @@ class HashMap {
                     printed = true;
                     node = node.next;
                 }
-                // while (node) {
-                //   if (printed) hashStr += ", ";
-                //   hashStr += node.key;
-                //   hashStr += ": ";
-                //   hashStr += node.value;
-                //   printed = true;
-                //   node = node.next;
-                // }
             }
             hashStr += "}";
             console.log(hashStr);
         }
     }
+    // TODO - delete
+    /**
+     * Remove a key from a hashmap.
+     *
+     * @param key
+     *
+     * @returns the value of the node, or null if the key doesn't exist.
+     */
+    delete(key) {
+        const index = (0, hashFunction_1.hashDjb2)(key) % SIZE;
+        let head = this.table.array[index];
+        let ptr = this.table.array[index];
+        ;
+        let value;
+        if (head) {
+            // first key/node
+            if (head.key === key) {
+                this.table.array[index] = head.next;
+                head.next = null;
+                return head.value;
+            }
+            head = head.next;
+            while (head) {
+                // ptr = head;
+                if (head.key === key) {
+                    if (ptr) {
+                        ptr.next = head.next;
+                        head.next = null;
+                        return head.value;
+                    }
+                }
+                ptr = head;
+                head = head.next;
+            }
+        }
+        console.log(`"${key}" does not exist`);
+        return null;
+    }
 }
-const map = new HashMap();
-map.set("David", 1);
-map.set("Subgenera", 2);
-map.set("Hello", 3);
-map.set("dram ", 5);
-map.set("vivency", 100);
-// map.set("ALX", 10);
-map.set("urites", 89);
-map.set("redescribed", 72);
-map.update("hi", 6);
-// console.log(map.get("Hello"));
-// map.set("depravement", 4);
-// map.set("subgenera", 5);
-map.print(map);
+exports.HashMap = HashMap;

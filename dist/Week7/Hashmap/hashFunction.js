@@ -13,5 +13,9 @@ function hashDjb2(str) {
         const c = str.charCodeAt(i);
         hash = (hash << 5) + hash + c;
     }
+    if (hash < 0)
+        hash = hash * -1;
     return hash;
 }
+console.log(hashDjb2("Dunsin"));
+console.log(hashDjb2("David"));
