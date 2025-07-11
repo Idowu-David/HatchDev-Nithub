@@ -7,8 +7,9 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.hashDjb2 = hashDjb2;
-function hashDjb2(str) {
+function hashDjb2(key) {
     let hash = 5381;
+    let str = String(key);
     for (let i = 0; i < str.length; i++) {
         const c = str.charCodeAt(i);
         hash = (hash << 5) + hash + c;
@@ -17,5 +18,5 @@ function hashDjb2(str) {
         hash = hash * -1;
     return hash;
 }
-console.log(hashDjb2("Dunsin"));
-console.log(hashDjb2("David"));
+// console.log(hashDjb2("Dunsin"))
+// console.log(hashDjb2("David"))

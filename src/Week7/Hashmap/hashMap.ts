@@ -86,7 +86,7 @@ export class HashMap<K, V> {
         head = head.next;
       }
     } else {
-      console.log(`"${key}" doesn't exist`);
+      console.log(`"${key}" does not exist`);
       return;
     }
   }
@@ -131,7 +131,6 @@ export class HashMap<K, V> {
     const index = hashDjb2(key) % SIZE;
     let head: HashNode<K, V> | null = this.table.array[index];
     let ptr: HashNode<K, V> | null = this.table.array[index];
-    let value: V;
 
     if (head) {
       // first key/node

@@ -80,7 +80,7 @@ class HashMap {
             }
         }
         else {
-            console.log(`"${key}" doesn't exist`);
+            console.log(`"${key}" does not exist`);
             return;
         }
     }
@@ -124,8 +124,6 @@ class HashMap {
         const index = (0, hashFunction_1.hashDjb2)(key) % SIZE;
         let head = this.table.array[index];
         let ptr = this.table.array[index];
-        ;
-        let value;
         if (head) {
             // first key/node
             if (head.key === key) {
